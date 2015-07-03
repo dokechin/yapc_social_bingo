@@ -5,21 +5,21 @@ use Web::Scraper;
 use URI;
 use Furl;
 
-get_recent_author_image();
+#get_recent_author_image();
 tile_images();
 
 sub tile_images {
-    my $output = 'output.png';
-
+  my $output = 'output.png';
 
   my ($img, @coords) = tile(
-    Images => [ grep { $_ ne $output } glob '*.png'],
+    Images => [ map {my $img = Imager->new(file=>$_);$img->scale(xpixels=>96, ypixels=>96);} grep { $_ ne $output; } glob '*.png'],
     Background => 'lgray',
     Center => 1,
-    VEdgeMargin => 10,
-    HEdgeMargin => 10,
-    VTileMargin => 5,
-    HTileMargin => 5);
+    VEdgeMargin  => 10,
+    HEdgeMargin  => 10,
+    VTileMargin  => 5,
+    HTileMargin  => 5,
+    ImagesPerRow => 8);
 
     open my $fh, '>', $output or die "Can't open $output\n";
     print {$fh} $img;
