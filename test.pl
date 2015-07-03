@@ -3,9 +3,10 @@ use warnings;
 use Imager::Tiler qw(tile);
 use Web::Scraper;
 use URI;
+use Digest::MD5 qw/md5_hex/;
 use Furl;
 
-#get_recent_author_image();
+get_recent_author_image();
 tile_images();
 
 sub tile_images {
@@ -45,7 +46,7 @@ sub get_recent_author_image {
             next;
         }
 
-        my $file = $index++ . ".png";
+        my $file = md5_hex($img_url) . ".png";
         open my $fh, '>', $file  or die "Can't open $file";
         print {$fh} $res->content;
         close $fh;
