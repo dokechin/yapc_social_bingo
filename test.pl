@@ -23,7 +23,8 @@ sub tile_images {
     HEdgeMargin  => 10,
     VTileMargin  => 50,
     HTileMargin  => 50,
-    ImagesPerRow => 8);
+    ImagesPerRow => 8,
+    Shadow => 1);
 
     open my $fh, '>', $output or die "Can't open $output\n";
     print {$fh} $img;
