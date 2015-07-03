@@ -17,12 +17,12 @@ sub tile_images {
   my @shuffled = shuffle @$images;
   my ($img, @coords) = tile(
     Images => \@shuffled,
-    Background => 'lgray',
+    Background => 'lyellow',
     Center => 1,
     VEdgeMargin  => 10,
     HEdgeMargin  => 10,
-    VTileMargin  => 5,
-    HTileMargin  => 5,
+    VTileMargin  => 50,
+    HTileMargin  => 50,
     ImagesPerRow => 8);
 
     open my $fh, '>', $output or die "Can't open $output\n";
