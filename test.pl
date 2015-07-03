@@ -4,6 +4,7 @@ use Imager::Tiler qw(tile);
 use Web::Scraper;
 use URI;
 use Digest::MD5 qw/md5_hex/;
+use List::Util qw/shuffle/;
 use Furl;
 
 get_recent_author_image();
@@ -12,8 +13,10 @@ tile_images();
 sub tile_images {
   my $output = 'output.png';
 
+  my $images = [ map {my $img = Imager->new(file=>$_);$img->scale(xpixels=>96, ypixels=>96);} grep { $_ ne $output; } glob '*.png'];
+  my @shuffled = shuffle @$images;
   my ($img, @coords) = tile(
-    Images => [ map {my $img = Imager->new(file=>$_);$img->scale(xpixels=>96, ypixels=>96);} grep { $_ ne $output; } glob '*.png'],
+    Images => \@shuffled,
     Background => 'lgray',
     Center => 1,
     VEdgeMargin  => 10,
