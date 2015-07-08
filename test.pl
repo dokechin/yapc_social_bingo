@@ -9,7 +9,7 @@ use List::Util qw/shuffle/;
 use Furl;
 $|=1;
 
-#get_recent_author_image();
+get_recent_author_image();
 tile_images();
 
 sub tile_images {
