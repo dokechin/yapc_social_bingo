@@ -89,12 +89,16 @@ sub get_recent_author_image {
         $named_img->paste(left=>13, top=>0, src=>$img);
         
         # IPA Pゴシックフォントをオブジェクト化
-        my $font = Imager::Font->new( file => 'ipagp.ttf' );
+        my $blue = Imager::Color->new("#0000FF");
+        my $font = Imager::Font->new( file => 'ipagp.ttf' ,color => $blue);
+
         # create textbox instance
         my $tb = Imager::DTP::Textbox::Horizontal->new(
             text=>$speaker,font=>$font,haligh=>'left', wrapWidth=>136, wrapHeight=>16);
-        
-        $tb->draw(target=>$named_img,x=>0,y=>136);
+            
+        my $width = $tb->getWidth();
+        my $x = (136 - $width) /2;
+        $tb->draw(target=>$named_img,x=>$x,y=>136);
 
         $named_img->write(file=> $file);
 
